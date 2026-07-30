@@ -2,7 +2,7 @@ import student
 
 
 def save_students(students):
-    with open("students.txt", "w") as file:
+    with open("students.txt", "w", encoding="utf-8") as file:
         for student_obj in students:
             file.write(
                 f"{student_obj.student_id},{student_obj.name},{student_obj.age},{student_obj.branch},{student_obj.cgpa}\n")
@@ -11,7 +11,7 @@ def save_students(students):
 def load_students():
     loaded_students = []
     try:
-        with open("students.txt", "r") as file:
+        with open("students.txt", "r", encoding="utf-8") as file:
             for line in file:
                 student_id, name, age, branch, cgpa = line.strip().split(",")
                 loaded_students.append(student.Student(

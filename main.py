@@ -30,9 +30,8 @@ def search_student(student_id):
             student_obj.display()
             return student_obj
 
-        else:
-            print("Student not found")
-            return None
+    print("Student not found")
+    return None
 
 
 while True:
@@ -43,7 +42,7 @@ while True:
     print("4. Search Student")
     print("5. Exit")
 
-    choice = input("Enter your choice: ")
+    choice = input("Enter your choice: ").strip()
     if choice == "1":
         add_student()
     elif choice == "2":
@@ -52,7 +51,7 @@ while True:
         file_handler.save_students(students)
         print("Students saved successfully!")
     elif choice == "4":
-        search_student(input("Enter Student ID to search: "))
+        search_student(input("Enter Student ID to search: ").strip())
     elif choice == "5":
         print("Exiting...")
         break
