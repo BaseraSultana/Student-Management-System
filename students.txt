@@ -1,0 +1,2 @@
+101,Basera,17,CSE,9.8
+102,Bisma,18,BBA,8.9

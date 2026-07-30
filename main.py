@@ -1,3 +1,4 @@
+import file_handler
 import student
 students = []
 
@@ -26,13 +27,18 @@ while True:
     print("\n---Student Management System---")
     print("1. Add STudent")
     print("2. Display Students")
-    print("3. Exit")
+    print("3. Save Students")
+    print("4. Exit")
+
     choice = input("Enter your choice: ")
     if choice == "1":
         add_student()
     elif choice == "2":
         display_students()
     elif choice == "3":
+        file_handler.save_students(students)
+        print("Students saved successfully!")
+    elif choice == "4":
         print("Exiting...")
         break
     else:
