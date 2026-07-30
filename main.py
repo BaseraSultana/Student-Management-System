@@ -1,6 +1,6 @@
 import file_handler
 import student
-students = []
+students = file_handler.load_students()
 
 
 def add_student():
@@ -23,12 +23,25 @@ def display_students():
             student_obj.display()
 
 
+def search_student(student_id):
+    for student_obj in students:
+        if student_obj.student_id == student_id:
+            print("Student found:")
+            student_obj.display()
+            return student_obj
+
+        else:
+            print("Student not found")
+            return None
+
+
 while True:
     print("\n---Student Management System---")
-    print("1. Add STudent")
+    print("1. Add Student")
     print("2. Display Students")
     print("3. Save Students")
-    print("4. Exit")
+    print("4. Search Student")
+    print("5. Exit")
 
     choice = input("Enter your choice: ")
     if choice == "1":
@@ -39,6 +52,8 @@ while True:
         file_handler.save_students(students)
         print("Students saved successfully!")
     elif choice == "4":
+        search_student(input("Enter Student ID to search: "))
+    elif choice == "5":
         print("Exiting...")
         break
     else:
