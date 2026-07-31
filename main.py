@@ -1,3 +1,4 @@
+# This is my first python project.
 import file_handler
 import student
 students = file_handler.load_students()
