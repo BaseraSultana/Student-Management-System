@@ -39,7 +39,33 @@ def delete_student(student_id):
     for student_obj in students:
         if student_obj.student_id == student_id:
             students.remove(student_obj)
+            file_handler.save_students(students)
             print("Student deleted successfully!")
+            return
+
+    print("Student not found")
+    return None
+
+
+def update_student(student_id):
+    for student_obj in students:
+        if student_obj.student_id == student_id:
+            print("Enter new details (press enter to keep current value):")
+
+            name = (
+                input(f"Enter New Name [{student_obj.name}]: ")) or student_obj.name
+            age = (
+                input(f"Enter New Age [{student_obj.age}]: ")) or student_obj.age
+            branch = input(
+                f"Enter New Branch [{student_obj.branch}]: ") or student_obj.branch
+            cgpa = (
+                input(f"Enter New CGPA [{student_obj.cgpa}]: ")) or student_obj.cgpa
+            student_obj.name = name
+            student_obj.age = int(age)
+            student_obj.branch = branch
+            student_obj.cgpa = float(cgpa)
+            file_handler.save_students(students)
+            print("Student details updated successfully!")
             return
 
     print("Student not found")
@@ -53,7 +79,8 @@ while True:
     print("3. Save Students")
     print("4. Search Student")
     print("5. Delete Student")
-    print("6. Exit")
+    print("6. Update Student")
+    print("7. Exit")
 
     choice = input("Enter your choice: ").strip()
     if choice == "1":
@@ -68,8 +95,11 @@ while True:
     elif choice == "5":
         delete_student(input("Enter Student ID to delete:").strip())
     elif choice == "6":
+        update_student(input("Enter Student ID to update:").strip())
+    elif choice == "7":
         print("Exiting...")
         break
     else:
         print("Invalid choice. Please try again.")
+
     print("------------------------------")
