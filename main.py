@@ -35,13 +35,25 @@ def search_student(student_id):
     return None
 
 
+def delete_student(student_id):
+    for student_obj in students:
+        if student_obj.student_id == student_id:
+            students.remove(student_obj)
+            print("Student deleted successfully!")
+            return
+
+    print("Student not found")
+    return None
+
+
 while True:
     print("\n---Student Management System---")
     print("1. Add Student")
     print("2. Display Students")
     print("3. Save Students")
     print("4. Search Student")
-    print("5. Exit")
+    print("5. Delete Student")
+    print("6. Exit")
 
     choice = input("Enter your choice: ").strip()
     if choice == "1":
@@ -54,6 +66,8 @@ while True:
     elif choice == "4":
         search_student(input("Enter Student ID to search: ").strip())
     elif choice == "5":
+        delete_student(input("Enter Student ID to delete:").strip())
+    elif choice == "6":
         print("Exiting...")
         break
     else:
