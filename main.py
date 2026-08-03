@@ -5,11 +5,19 @@ students = file_handler.load_students()
 
 
 def add_student():
-    student_id = input("Enter Student ID: ")
-    name = input("Enter Name: ")
-    age = int(input("Enter Age: "))
-    branch = input("Enter Branch: ")
-    cgpa = float(input("Enter CGPA:"))
+    student_id = input("Enter Student ID: ").strip()
+    found = False
+    for student_obj in students:
+        if student_obj.student_id == student_id:
+            found = True
+            break
+    if found:
+        print("Student ID already exists. Please try again.")
+        return
+    name = input("Enter Name: ").strip()
+    age = int(input("Enter Age: ")).strip()
+    branch = input("Enter Branch: ").strip()
+    cgpa = float(input("Enter CGPA:")).strip()
     new_student = student.Student(student_id, name, age, branch, cgpa)
     students.append(new_student)
     print("Student added successfully!")
