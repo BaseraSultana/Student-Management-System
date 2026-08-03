@@ -72,6 +72,53 @@ def update_student(student_id):
     return None
 
 
+def sort_students():
+    if len(students) == 0:
+        print("No students found.")
+    else:
+        print("\n---SORT STUDENTS---")
+        print("\nSort By:",
+              "\n1. Student ID (Ascending)",
+              "\n2. Student ID (Descending)",
+              "\n3. Name (A-Z)",
+              "\n4. Name (Z-A)"
+              "\n5. Age (Youngest - Oldest)",
+              "\n6. Age (Oldest - Youngest)",
+              "\n7. Branch (Ascending - Descending)",
+              "\n8. Branch (Descending- Ascending)",
+              "\n9. CGPA (Hghest - lowest)",
+              "\n10. CGPA (Lowest - Highest)")
+        input_choice = input("Enter your choice: ").strip()
+        if input_choice == "1":
+            students.sort(key=lambda x: x.student_id)
+        elif input_choice == "2":
+            students.sort(key=lambda x: x.student_id, reverse=True)
+        elif input_choice == "3":
+            students.sort(key=lambda x: x.name)
+        elif input_choice == "4":
+            students.sort(key=lambda x: x.name, reverse=True)
+        elif input_choice == "5":
+            students.sort(key=lambda x: x.age)
+        elif input_choice == "6":
+            students.sort(key=lambda x: x.age, reverse=True)
+        elif input_choice == "7":
+            students.sort(key=lambda x: x.branch)
+        elif input_choice == "8":
+            students.sort(key=lambda x: x.branch, reverse=True)
+        elif input_choice == "9":
+            students.sort(key=lambda x: x.cgpa)
+        elif input_choice == "10":
+            students.sort(key=lambda x: x.cgpa, reverse=True)
+        else:
+            print("Invalid choice. Please try again.")
+            return
+        print("Students sorted successfully!")
+        display_students()
+
+
+# -----------------------------------------------------------------------------------------
+
+
 while True:
     print("\n---Student Management System---")
     print("1. Add Student")
@@ -80,7 +127,8 @@ while True:
     print("4. Search Student")
     print("5. Delete Student")
     print("6. Update Student")
-    print("7. Exit")
+    print("7. Sort Students")
+    print("8. Exit")
 
     choice = input("Enter your choice: ").strip()
     if choice == "1":
@@ -97,6 +145,8 @@ while True:
     elif choice == "6":
         update_student(input("Enter Student ID to update:").strip())
     elif choice == "7":
+        sort_students()
+    elif choice == "8":
         print("Exiting...")
         break
     else:
