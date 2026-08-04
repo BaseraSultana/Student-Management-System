@@ -5,6 +5,7 @@ students = file_handler.load_students()
 
 
 def add_student():
+    """Add a new student to the in-memory list."""
     student_id = input("Enter Student ID: ").strip()
     found = False
     for student_obj in students:
@@ -15,15 +16,16 @@ def add_student():
         print("Student ID already exists. Please try again.")
         return
     name = input("Enter Name: ").strip()
-    age = int(input("Enter Age: ")).strip()
+    age = int(input("Enter Age: ").strip())
     branch = input("Enter Branch: ").strip()
-    cgpa = float(input("Enter CGPA:")).strip()
+    cgpa = float(input("Enter CGPA: ").strip())
     new_student = student.Student(student_id, name, age, branch, cgpa)
     students.append(new_student)
     print("Student added successfully!")
 
 
 def display_students():
+    """Display all students currently stored in memory."""
     if len(students) == 0:
         print("No students found.")
     else:
@@ -33,6 +35,14 @@ def display_students():
 
 
 def search_student(student_id):
+    """Search for a student by their ID and display their details.
+
+    Args:
+        student_id: The unique student ID to search for.
+
+    Returns:
+        The matching student object if found; otherwise, None.
+    """
     for student_obj in students:
         if student_obj.student_id == student_id:
             print("Student found:")
@@ -44,18 +54,34 @@ def search_student(student_id):
 
 
 def delete_student(student_id):
-    for student_obj in students:
+    """Delete a student by their ID from the in memory list.
+
+    Args:
+        student_id: The unique student ID to delete.
+
+    Returns:
+        The matching student object if found and deleted; otherwise, None.
+    """
+    for student_obj in students[:]:
         if student_obj.student_id == student_id:
             students.remove(student_obj)
             file_handler.save_students(students)
             print("Student deleted successfully!")
-            return
+            return student_obj
 
     print("Student not found")
     return None
 
 
 def update_student(student_id):
+    """Update a student's details by their ID.
+
+    Args:
+        student_id: The unique student ID to update.
+
+    Returns:
+        The updated student object if found; otherwise, None.
+    """
     for student_obj in students:
         if student_obj.student_id == student_id:
             print("Enter new details (press enter to keep current value):")
