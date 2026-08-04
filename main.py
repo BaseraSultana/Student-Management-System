@@ -7,6 +7,9 @@ students = file_handler.load_students()
 def add_student():
     """Add a new student to the in-memory list."""
     student_id = input("Enter Student ID: ").strip()
+    if student_id == "":
+        print("Student ID cannot be empty. Please try again.")
+        return
     found = False
     for student_obj in students:
         if student_obj.student_id == student_id:
@@ -16,9 +19,21 @@ def add_student():
         print("Student ID already exists. Please try again.")
         return
     name = input("Enter Name: ").strip()
+    if name == "":
+        print("Name cannot be empty. Please try again.")
+        return
     age = int(input("Enter Age: ").strip())
+    if age <= 0:
+        print("Age must be a positive integer. Please try again.")
+        return
     branch = input("Enter Branch: ").strip()
+    if branch == "":
+        print("Branch cannot be empty. Please try again.")
+        return
     cgpa = float(input("Enter CGPA: ").strip())
+    if cgpa < 0.0 or cgpa > 10.0:
+        print("CGPA must be between 0.0 and 10.0. Please try again.")
+        return
     new_student = student.Student(student_id, name, age, branch, cgpa)
     students.append(new_student)
     print("Student added successfully!")
@@ -150,9 +165,24 @@ def sort_students():
         display_students()
 
 
+def display_topper():
+    """Display the student with the highest CGPA."""
+    if len(students) == 0:
+        print("No students found.")
+    else:
+        topper = []
+        for student_obj in students:
+            if not topper or student_obj.cgpa > topper[0].cgpa:
+                topper = [student_obj]
+            elif student_obj.cgpa == topper[0].cgpa:
+                topper.append(student_obj)
+        print("\n---TOPPER DETAILS---")
+        for student_obj in topper:
+            student_obj.display()
+        return topper
+
+
 # -----------------------------------------------------------------------------------------
-
-
 while True:
     print("\n---Student Management System---")
     print("1. Add Student")
@@ -162,7 +192,8 @@ while True:
     print("5. Delete Student")
     print("6. Update Student")
     print("7. Sort Students")
-    print("8. Exit")
+    print("8. Display Topper")
+    print("9. Exit")
 
     choice = input("Enter your choice: ").strip()
     if choice == "1":
@@ -181,6 +212,8 @@ while True:
     elif choice == "7":
         sort_students()
     elif choice == "8":
+        display_topper()
+    elif choice == "9":
         print("Exiting...")
         break
     else:
