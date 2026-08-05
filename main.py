@@ -49,22 +49,43 @@ def display_students():
             student_obj.display()
 
 
-def search_student(student_id):
-    """Search for a student by their ID and display their details.
+def search_student(student_id=None, student_name=None):
+    """Search for a student by their ID or name and display their details."""
+    print("---Search Student---", "\n1. Search by ID", "\n2. Search by Name")
+    choice = input("Enter your choice: ").strip()
 
-    Args:
-        student_id: The unique student ID to search for.
+    if choice == "1":
+        student_id = input("Enter Student ID to search: ").strip()
+        for student_obj in students:
+            if student_obj.student_id == student_id:
+                print("Student found:")
+                student_obj.display()
+                return student_obj
+        print("Student not found")
+        return None
 
-    Returns:
-        The matching student object if found; otherwise, None.
-    """
-    for student_obj in students:
-        if student_obj.student_id == student_id:
+    if choice == "2":
+        student_name = input("Enter Student Name to search: ").strip()
+        if student_name == "":
+            print("Name cannot be empty. Please try again.")
+            return None
+
+        matches = []
+        search_term = student_name.casefold()
+        for student_obj in students:
+            if student_obj.name.casefold() == search_term:
+                matches.append(student_obj)
+
+        if matches:
             print("Student found:")
-            student_obj.display()
-            return student_obj
+            for student_obj in matches:
+                student_obj.display()
+            return matches
 
-    print("Student not found")
+        print("Student not found")
+        return None
+
+    print("Invalid choice. Please try again.")
     return None
 
 
@@ -225,7 +246,7 @@ while True:
         file_handler.save_students(students)
         print("Students saved successfully!")
     elif choice == "4":
-        search_student(input("Enter Student ID to search: ").strip())
+        search_student()
     elif choice == "5":
         delete_student(input("Enter Student ID to delete:").strip())
     elif choice == "6":
