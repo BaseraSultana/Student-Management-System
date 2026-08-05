@@ -182,6 +182,26 @@ def display_topper():
         return topper
 
 
+def student_statistics():
+    """Display statistics about the students."""
+    if len(students) == 0:
+        print("No students found.")
+    else:
+        total_students = len(students)
+        average_age = sum(
+            student_obj.age for student_obj in students) / total_students
+        average_cgpa = sum(
+            student_obj.cgpa for student_obj in students) / total_students
+        highest_cgpa = max(students, key=lambda x: x.cgpa)
+        lowest_cgpa = min(students, key=lambda x: x.cgpa)
+        print("\n---STUDENT STATISTICS---")
+        print(f"Total Students: {total_students}")
+        print(f"Average Age: {average_age:.0f}")
+        print(f"Average CGPA: {average_cgpa:.1f}")
+        print(f"Highest CGPA: {highest_cgpa.cgpa}")
+        print(f"Lowest CGPA: {lowest_cgpa.cgpa}")
+
+
 # -----------------------------------------------------------------------------------------
 while True:
     print("\n---Student Management System---")
@@ -193,7 +213,8 @@ while True:
     print("6. Update Student")
     print("7. Sort Students")
     print("8. Display Topper")
-    print("9. Exit")
+    print("9. Student Statistics")
+    print("10. Exit")
 
     choice = input("Enter your choice: ").strip()
     if choice == "1":
@@ -214,6 +235,8 @@ while True:
     elif choice == "8":
         display_topper()
     elif choice == "9":
+        student_statistics()
+    elif choice == "10":
         print("Exiting...")
         break
     else:
