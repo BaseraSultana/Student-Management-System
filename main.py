@@ -46,8 +46,10 @@ def display_students():
         print("No students found.")
     else:
         print("\n---STUDENT DETAILS---")
+
         for student_obj in students:
             student_obj.display()
+            print("------------------------------------")
 
 
 def search_student(student_id=None, student_name=None):
@@ -261,6 +263,13 @@ def undo_last_delete():
         last_deleted_student = None
 
 
+def student_report():
+    total = len(students)
+    print("\n-----STUDENT REPORT-----", "\n",
+          f"\n Total Students: {total}")
+    display_students()
+
+
 # -----------------------------------------------------------------------------------------
 while True:
     print("\n---Student Management System---")
@@ -275,7 +284,8 @@ while True:
         "8. Display Topper",
         "9. Student Statistics",
         "10. Undo Last Delete",
-        "11. Exit",
+        "11. Export Student Report",
+        "12. Exit",
     )
     print("\n MENU:\n" + "\n".join(main_menu))
 
@@ -314,6 +324,8 @@ while True:
     elif choice == "10":
         undo_last_delete()
     elif choice == "11":
+        student_report()
+    elif choice == "12":
         print("Exiting...")
         break
     else:
