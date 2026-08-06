@@ -73,7 +73,7 @@ def search_student(student_id=None, student_name=None):
         matches = []
         search_term = student_name.casefold()
         for student_obj in students:
-            if student_obj.name.casefold() == search_term:
+            if search_term in student_obj.name.casefold():
                 matches.append(student_obj)
 
         if matches:
