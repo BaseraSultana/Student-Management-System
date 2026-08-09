@@ -8,7 +8,6 @@ class Student:
 
     def display(self):
         print("")
-        print("---STUDENT DETAILS---")
         print("Student ID:", self.student_id)
         print("Name:", self.name)
         print("Age:", self.age)

@@ -45,9 +45,9 @@ def display_students():
     if len(students) == 0:
         print("No students found.")
     else:
-        print("\n---STUDENT DETAILS---")
-
+        print("\n======= STUDENTS =======", "\n")
         for student_obj in students:
+            print("---STUDENT DETAILS---")
             student_obj.display()
             print("------------------------------------")
 
@@ -109,7 +109,7 @@ def delete_student(student_id):
             delete_choice = input("Enter your choice: ").strip()
 
             if delete_choice == "1":
-                last_deleted_student = student_obj
+                last_deleted_student += student_obj
                 students.remove(student_obj)
                 file_handler.save_students(students)
                 print("Student deleted successfully!")
@@ -264,10 +264,18 @@ def undo_last_delete():
 
 
 def student_report():
+    """Display a student report with the total count and each student's details."""
     total = len(students)
-    print("\n-----STUDENT REPORT-----", "\n",
-          f"\n Total Students: {total}")
-    display_students()
+    print("\n======= STUDENT REPORT =======")
+    print(f"\nTotal Students: {total}")
+
+    if not students:
+        print("\nNo students found.")
+        return
+    else:
+        for student_obj in students:
+            student_obj.display()
+            print("\n------------------------------------")
 
 
 # -----------------------------------------------------------------------------------------
