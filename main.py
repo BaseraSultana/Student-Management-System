@@ -2,7 +2,7 @@
 import file_handler
 import student
 students = file_handler.load_students()
-last_deleted_student = None
+LAST_DELETED_STUDENT = None
 
 
 def add_student():
@@ -118,7 +118,7 @@ def delete_student(student_id):
     Returns:
         The matching student object if found and deleted; otherwise, None.
     """
-    global last_deleted_student
+    global LAST_DELETED_STUDENT
 
     for student_obj in students[:]:
         if student_obj.student_id == student_id:
@@ -128,7 +128,7 @@ def delete_student(student_id):
             delete_choice = input("Enter Your Choice: ").strip()
 
             if delete_choice == "1":
-                last_deleted_student = student_obj
+                LAST_DELETED_STUDENT = student_obj
                 students.remove(student_obj)
                 file_handler.save_students(students)
                 print("Student Deleted Successfully!")
@@ -272,14 +272,14 @@ def student_statistics():
 
 def undo_last_delete():
     """Restore the last deleted student, if any."""
-    global last_deleted_student
-    if last_deleted_student is None:
+    global LAST_DELETED_STUDENT
+    if LAST_DELETED_STUDENT is None:
         print("No Student Available To Restore.")
     else:
-        students.append(last_deleted_student)
+        students.append(LAST_DELETED_STUDENT)
         file_handler.save_students(students)
         print("Student Restored Successfully!")
-        last_deleted_student = None
+        LAST_DELETED_STUDENT = None
 
 
 def student_report():
@@ -288,13 +288,24 @@ def student_report():
     print("\n======= STUDENT REPORT =======")
     print(f"\nTotal Students: {total}")
 
-    if not students:
+    if total == 0:
         print("\nNo Students Found.")
         return
-    else:
-        for student_obj in students:
-            student_obj.display()
-            print("\n------------------------------------")
+
+    averagecgpa = sum(student_obj.cgpa for student_obj in students) / total
+    print(f"Average CGPA: {averagecgpa:.2f}")
+
+    print("\n-----------------------------------------------------------")
+    print(f"{'ID':<8} {'Name':<20} {'CGPA':<8} {'Branch':<12}")
+    print("-----------------------------------------------------------")
+    for student_obj in students:
+        print(
+            f"{student_obj.student_id:<8} "
+            f"{student_obj.name:<20} "
+            f"{student_obj.cgpa:<8.2f} "
+            f"{student_obj.branch:<12}"
+        )
+    print("\n---------------------------------------------------------------")
 
 
 # -----------------------------------------------------------------------------------------
