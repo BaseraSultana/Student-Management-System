@@ -9,7 +9,7 @@ def add_student():
     """Add a new student to the in-memory list."""
     student_id = input("Enter Student ID: ").strip()
     if student_id == "":
-        print("Student ID cannot be empty. Please try again.")
+        print("Student ID cannot be empty. Please Try Again.")
         return
     found = False
     for student_obj in students:
@@ -17,60 +17,77 @@ def add_student():
             found = True
             break
     if found:
-        print("Student ID already exists. Please try again.")
+        print("Student ID already exists. Please Try Again.")
         return
     name = input("Enter Name: ").strip()
     if name == "":
-        print("Name cannot be empty. Please try again.")
+        print("Name cannot be empty. Please Try Again.")
         return
     age = int(input("Enter Age: ").strip())
     if age <= 0:
-        print("Age must be a positive integer. Please try again.")
+        print("Age must be a positive integer. Please Try Again.")
         return
     branch = input("Enter Branch: ").strip()
     if branch == "":
-        print("Branch cannot be empty. Please try again.")
+        print("Branch cannot be empty. Please Try Again.")
         return
     cgpa = float(input("Enter CGPA: ").strip())
     if cgpa < 0.0 or cgpa > 10.0:
-        print("CGPA must be between 0.0 and 10.0. Please try again.")
+        print("CGPA must be between 0.0 and 10.0. Please Try Again.")
         return
     new_student = student.Student(student_id, name, age, branch, cgpa)
     students.append(new_student)
-    print("Student added successfully!")
+    print("Student Added Successfully!")
 
 
 def display_students():
     """Display all students currently stored in memory."""
     if len(students) == 0:
-        print("No students found.")
+        print("No Students Found.")
     else:
         print("\n======= STUDENTS =======", "\n")
-        for student_obj in students:
-            print("---STUDENT DETAILS---")
-            student_obj.display()
-            print("------------------------------------")
+        print("----- DISPLAY STUDENTS -----",
+              "\n1. Dispaly All Students",
+              "\n2. Display Students By Branch")
+        display_choice = input("Enter Your Choice: ").strip()
+
+        if display_choice == "1":
+            for student_obj in students:
+                print("\n---STUDENT DETAILS---")
+                student_obj.display()
+                print("------------------------------------")
+        elif display_choice == "2":
+            student_branch = input("Enter The Branch: ").strip().casefold()
+            for student_obj in students:
+                if student_obj.branch.casefold() == student_branch:
+                    print(f"\nSTUDENTS OF: [{student_branch}]")
+                    student_obj.display()
+                    return
+            print("Invalid Choice. Please Try Again")
+            return None
+        else:
+            print("Invalid Input")
 
 
 def search_student(student_id=None, student_name=None):
     """Search for a student by their ID or name and display their details."""
     print("---Search Student---", "\n1. Search by ID", "\n2. Search by Name")
-    search_choice = input("Enter your choice: ").strip()
+    search_choice = input("Enter Your Choice: ").strip()
 
     if search_choice == "1":
-        student_id = input("Enter Student ID to search: ").strip()
+        student_id = input("Enter Student ID To Search: ").strip()
         for student_obj in students:
             if student_obj.student_id == student_id:
-                print("Student found:")
+                print("Student Found:")
                 student_obj.display()
                 return student_obj
-        print("Student not found")
+        print("Student Not Found")
         return None
 
     if search_choice == "2":
-        student_name = input("Enter Student Name to search: ").strip()
+        student_name = input("Enter Student Name To Search: ").strip()
         if student_name == "":
-            print("Name cannot be empty. Please try again.")
+            print("Name cannot be empty. Please Try Again.")
             return None
 
         matches = []
@@ -80,15 +97,15 @@ def search_student(student_id=None, student_name=None):
                 matches.append(student_obj)
 
         if matches:
-            print("Student found:")
+            print("Student Found:")
             for student_obj in matches:
                 student_obj.display()
             return matches
 
-        print("Student not found")
+        print("Student Not Found")
         return None
 
-    print("Invalid choice. Please try again.")
+    print("Invalid choice. Please Try Again.")
     return None
 
 
@@ -105,22 +122,22 @@ def delete_student(student_id):
 
     for student_obj in students[:]:
         if student_obj.student_id == student_id:
-            print("Student found:")
+            print("Student Found:")
             student_obj.display()
-            print("\nConfirm deletion:", "\n1. Yes", "\n2. No")
-            delete_choice = input("Enter your choice: ").strip()
+            print("\nConfirm Deletion:", "\n1. Yes", "\n2. No")
+            delete_choice = input("Enter Your Choice: ").strip()
 
             if delete_choice == "1":
                 last_deleted_student = student_obj
                 students.remove(student_obj)
                 file_handler.save_students(students)
-                print("Student deleted successfully!")
+                print("Student Deleted Successfully!")
                 return student_obj
             else:
-                print("Deletion cancelled.")
+                print("Deletion Cancelled.")
                 return None
 
-    print("Student not found")
+    print("Student Not Found")
     return None
 
 
@@ -150,17 +167,17 @@ def update_student(student_id):
             student_obj.branch = branch
             student_obj.cgpa = float(cgpa)
             file_handler.save_students(students)
-            print("Student details updated successfully!")
+            print("Student Details Updated Successfully!")
             return
 
-    print("Student not found")
+    print("Student Not Found")
     return None
 
 
 def sort_students():
     """Display sort options and sort the global students list accordingly."""
     if not students:
-        print("No students found.")
+        print("No Students Found.")
         return
 
     print("\n---SORT STUDENTS---")
@@ -192,14 +209,14 @@ def sort_students():
         "10": (lambda x: x.cgpa, False),
     }
 
-    sort_choice = input("Enter your choice: ").strip()
+    sort_choice = input("Enter Your Choice: ").strip()
     if sort_choice in key_map:
         key_func, rev = key_map[sort_choice]
         students.sort(key=key_func, reverse=rev)
-        print("Students sorted successfully!")
+        print("Students Sorted Successfully!")
         display_students()
     else:
-        print("Invalid choice. Please try again.")
+        print("Invalid choice. Please Try Again.")
     # else:
     #     print("Invalid choice.")
     #     elif input_choice == "5":
@@ -219,7 +236,7 @@ def sort_students():
 def display_topper():
     """Display the student with the highest CGPA."""
     if len(students) == 0:
-        print("No students found.")
+        print("No Students Found.")
     else:
         topper = []
         for student_obj in students:
@@ -236,7 +253,7 @@ def display_topper():
 def student_statistics():
     """Display statistics about the students."""
     if len(students) == 0:
-        print("No students found.")
+        print("No Students Found.")
     else:
         total_students = len(students)
         average_age = sum(
@@ -257,11 +274,11 @@ def undo_last_delete():
     """Restore the last deleted student, if any."""
     global last_deleted_student
     if last_deleted_student is None:
-        print("No student available to restore.")
+        print("No Student Available To Restore.")
     else:
         students.append(last_deleted_student)
         file_handler.save_students(students)
-        print("Student restored successfully!")
+        print("Student Restored Successfully!")
         last_deleted_student = None
 
 
@@ -272,7 +289,7 @@ def student_report():
     print(f"\nTotal Students: {total}")
 
     if not students:
-        print("\nNo students found.")
+        print("\nNo Students Found.")
         return
     else:
         for student_obj in students:
@@ -311,14 +328,14 @@ while True:
     # print("10. Undo Last Delete")
     # print("11. Exit")
 
-    choice = input("Enter your choice: ").strip()
+    choice = input("Enter Your Choice: ").strip()
     if choice == "1":
         add_student()
     elif choice == "2":
         display_students()
     elif choice == "3":
         file_handler.save_students(students)
-        print("Students saved successfully!")
+        print("Students Saved Successfully!")
     elif choice == "4":
         search_student()
     elif choice == "5":
@@ -339,6 +356,6 @@ while True:
         print("Exiting...")
         break
     else:
-        print("Invalid choice. Please try again.")
+        print("Invalid choice. Please Try Again.")
 
     print("------------------------------")
