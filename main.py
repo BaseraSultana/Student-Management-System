@@ -101,6 +101,8 @@ def delete_student(student_id):
     Returns:
         The matching student object if found and deleted; otherwise, None.
     """
+    global last_deleted_student
+
     for student_obj in students[:]:
         if student_obj.student_id == student_id:
             print("Student found:")
@@ -109,7 +111,7 @@ def delete_student(student_id):
             delete_choice = input("Enter your choice: ").strip()
 
             if delete_choice == "1":
-                last_deleted_student += student_obj
+                last_deleted_student = student_obj
                 students.remove(student_obj)
                 file_handler.save_students(students)
                 print("Student deleted successfully!")
