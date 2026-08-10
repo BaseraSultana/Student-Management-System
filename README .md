@@ -31,7 +31,7 @@ README.md            Documentation for the project
 
 ## How to Run
 1. Clone the repository
-git clone <your-repository-url>
+git clone <https://github.com/BaseraSultana/Student-Management-System.git>
 2. Open the project folder
 cd StudentManagementSystem
 3. Run the program
